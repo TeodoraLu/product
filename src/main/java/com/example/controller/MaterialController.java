@@ -29,7 +29,7 @@ public class MaterialController extends GenericController{
 
     @Autowired
     private MaterialService materialService;
-    //添加原材料
+    //查询原材料
     @RequestMapping(value = "/query",method = RequestMethod.POST)
     public void query(HttpServletRequest request, HttpServletResponse response) {
         //调用service方法得到用户列表

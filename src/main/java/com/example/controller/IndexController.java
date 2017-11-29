@@ -24,8 +24,8 @@ public class IndexController extends GenericController{
     private OrderService orderService;
     //登录
     @RequestMapping(value = "/orderInfo",method = RequestMethod.POST)
-    public void getOrderInfo(@RequestParam String type, HttpServletRequest request, HttpServletResponse response) {
-       // String type =request.getParameter("type");
+    public void getOrderInfo( HttpServletRequest request, HttpServletResponse response) {
+        String type =request.getParameter("type");
         logger.info("/index/orderInfo param is "+type);
         List<OrderInfo> order = orderService.getOrder(type);
         renderSuccessString(response,order,"操作成功");

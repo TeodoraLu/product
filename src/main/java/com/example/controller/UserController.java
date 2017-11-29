@@ -2,8 +2,11 @@ package com.example.controller;
 
 import com.example.bean.User;
 import com.example.service.UserService;
+import com.example.util.Token;
+import com.sun.tools.javac.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -31,7 +37,11 @@ public class UserController extends GenericController{
         if(user==null||"".equals(user)){
             renderErrorString(response, "账号或密码错误");
         }else {
-            renderSuccessString(response,user,"登录成功");
+            String token = Token.getTokenString(username,request.getSession());
+            Map<String,Object> result = new HashMap<String,Object>();
+            result.put("token",token);
+            result.put("user",user);
+            renderSuccessString(response,result,"登录成功");
         }
     }
 
