@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.mapper.OrderInfoQueryMapper">
+  <select id="queryOrderInfo" resultType="com.example.bean.OrderInfo">
+    select id,customer,createDate,readyDate,`upDate`,goods_name as goodsName,goods_quantity as goodsQuantity,
+    goods_price as goodsPrice, goods_profit as goodsProfit,type from order_info where type =  #{type,jdbcType=VARCHAR}
+    ORDER BY readyDate asc
+  </select>
+</mapper>
