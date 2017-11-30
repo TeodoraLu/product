@@ -1,11 +1,15 @@
 package com.example.controller;
 
+import com.example.bean.OrderInfo;
+import com.example.bean.OrderInfoComplete;
 import com.example.bean.User;
+import com.example.service.OrderService;
 import com.example.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,21 +23,39 @@ public class OrderController extends GenericController{
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
-    private UserService userService;
+    private OrderService orderService;
 
-    //登录
-    @RequestMapping(value = "/query",method = RequestMethod.GET)
-    public void getUsers3(@RequestParam String username,@RequestParam String password, HttpServletRequest request, HttpServletResponse response) {
-        //调用service方法得到用户列表
-        User user = userService.getUsers(username,password);
-        if(user==null||"".equals(user)){
-            renderErrorString(response, "账号或密码错误");
+    //保存订单
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    public void save(@RequestBody OrderInfo orderInfo, HttpServletRequest request, HttpServletResponse response) {
+        //保存订单
+        int num = orderService.save(orderInfo);
+        if(num==1){
+            renderSuccessString(response,orderInfo,"保存成功");
         }else {
-            renderSuccessString(response,user,"登录成功");
+            renderErrorString(response, "保存失败");
         }
     }
 
+    //修改
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    public void update(@RequestBody OrderInfo orderInfo, HttpServletRequest request, HttpServletResponse response) {
+        //保存订单
+        int num = orderService.update(orderInfo);
+        if(num==1){
+            renderSuccessString(response,orderInfo,"修改成功");
+        }else {
+            renderErrorString(response, "修改失败");
+        }
+    }
 
+    //删除
+    @RequestMapping(value = "/complete",method = RequestMethod.POST)
+    public void complete(@RequestBody OrderInfoComplete orderInfo, HttpServletRequest request, HttpServletResponse response) {
+        //保存订单
+        orderService.complete(orderInfo);
+        renderSuccessString(response,orderInfo,"修改成功");
+    }
    /* //返回jsp视图展示
     @RequestMapping(value = "/getUserModel",method = RequestMethod.GET)
     public ModelAndView getUsers1(@RequestParam Integer userId) {
