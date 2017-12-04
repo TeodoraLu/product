@@ -46,4 +46,7 @@ public class OrderService {
         orderInfoMapper.updateByPrimaryKeySelective(orderInfoUpdate);
     }
 
+    public void delete(Integer id){
+        orderInfoMapper.deleteByPrimaryKey(id);
+    }
 }

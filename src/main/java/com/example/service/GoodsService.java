@@ -35,4 +35,8 @@ public class GoodsService {
     public void update(GoodsStock goodsStock){
         goodsStockMapper.updateByPrimaryKeySelective(goodsStock);
     }
+
+    public void delete(Integer id){
+        goodsStockMapper.deleteByPrimaryKey(id);
+    }
 }

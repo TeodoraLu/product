@@ -46,4 +46,8 @@ public class MaterialService {
     public void update(MaterialStock materialStock){
         materialStockMapper.updateByPrimaryKeySelective(materialStock);
     }
+
+    public void delete(Integer id){
+        materialStockMapper.deleteByPrimaryKey(id);
+    }
 }

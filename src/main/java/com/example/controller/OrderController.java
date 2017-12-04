@@ -46,12 +46,21 @@ public class OrderController extends GenericController{
         }
     }
 
-    //完成
+    //完成订单
     @RequestMapping(value = "/complete",method = RequestMethod.POST)
     public void complete(@RequestBody OrderInfoComplete orderInfo, HttpServletRequest request, HttpServletResponse response) {
         //保存订单
         orderService.complete(orderInfo);
         renderSuccessString(response,orderInfo,"操作成功");
+    }
+
+    //删除订单
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    public void delete( HttpServletRequest request, HttpServletResponse response) {
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        orderService.delete(id);
+        renderSuccessString(response,id,"保存成功");
+
     }
    /* //返回jsp视图展示
     @RequestMapping(value = "/getUserModel",method = RequestMethod.GET)

@@ -97,4 +97,13 @@ public class MaterialController extends GenericController{
 
     }
 
+    //删除原材料
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    public void delete( HttpServletRequest request, HttpServletResponse response) {
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        materialService.delete(id);
+        renderSuccessString(response,id,"删除成功");
+
+    }
+
 }

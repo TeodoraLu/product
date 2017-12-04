@@ -115,7 +115,14 @@ public class GoodsController extends GenericController{
 
     }
 
+    //删除成品
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    public void delete( HttpServletRequest request, HttpServletResponse response) {
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        goodsService.delete(id);
+        renderSuccessString(response,id,"删除成功");
 
+    }
    /* //返回jsp视图展示
     @RequestMapping(value = "/getUserModel",method = RequestMethod.GET)
     public ModelAndView getUsers1(@RequestParam Integer userId) {
