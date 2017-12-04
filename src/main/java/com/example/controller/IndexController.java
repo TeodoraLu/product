@@ -22,7 +22,7 @@ public class IndexController extends GenericController{
 
     @Autowired
     private OrderService orderService;
-    //登录
+    //查询订单list
     @RequestMapping(value = "/orderInfo",method = RequestMethod.POST)
     public void getOrderInfo( HttpServletRequest request, HttpServletResponse response) {
         String type =request.getParameter("type");

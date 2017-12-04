@@ -1,7 +1,10 @@
 package com.example.controller;
 
 import com.example.bean.*;
+import com.example.req.GoodsStockMakeReq;
+import com.example.req.GoodsStockUpdateReq;
 import com.example.service.GoodsService;
+import com.example.service.MaterialService;
 import com.example.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -26,7 +30,10 @@ public class GoodsController extends GenericController{
     @Autowired
     private GoodsService goodsService;
 
-    //登录
+    @Autowired
+    private MaterialService materialService;
+
+    //查询成品list
     @RequestMapping(value = "/query",method = RequestMethod.POST)
     public void query(HttpServletRequest request, HttpServletResponse response) {
         //调用service方法得到用户列表
@@ -34,7 +41,7 @@ public class GoodsController extends GenericController{
         renderSuccessString(response,goodsStocks,"获取成功");
     }
 
-    //添加原材料
+    //添加成品
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public void save(@RequestBody GoodsStock goodsStock, HttpServletRequest request, HttpServletResponse response) {
         //保存成品库存
@@ -44,6 +51,66 @@ public class GoodsController extends GenericController{
         }else {
             renderErrorString(response, "保存失败");
         }
+    }
+
+    //获取成品
+    @RequestMapping(value = "/get",method = RequestMethod.POST)
+    public void get( HttpServletRequest request, HttpServletResponse response) {
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        GoodsStock goodsStock= goodsService.queryById(id);
+        renderSuccessString(response,goodsStock,"保存成功");
+
+    }
+
+    //修改成品
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    public void update(@RequestBody GoodsStockUpdateReq req, HttpServletRequest request, HttpServletResponse response) {
+        BigDecimal newPrice = req.getMaterialPrice().multiply(BigDecimal.valueOf(req.getGoodsOldQuantity())).divide(BigDecimal.valueOf(req.getGoodsQuantity()));
+        GoodsStock goodsStock = new GoodsStock();
+        goodsStock.setId(req.getId());
+        goodsStock.setMaterialPrice(newPrice);
+        goodsStock.setGoodsQuantity(req.getGoodsQuantity());
+        goodsService.update(goodsStock);
+        renderSuccessString(response,goodsStock,"修改成功");
+
+    }
+
+
+    //制作成品
+    @RequestMapping(value = "/make",method = RequestMethod.POST)
+    public void make(@RequestBody GoodsStockMakeReq req, HttpServletRequest request, HttpServletResponse response) {
+        GoodsStock goodsStockOld = goodsService.queryById(req.getId());
+        //成品新数量 = 原数量 + 采购数量，
+        int quantity = goodsStockOld.getGoodsQuantity()+req.getMakeQuantity();
+        //原材料价格
+        BigDecimal materialPrice = BigDecimal.valueOf(0);
+        //计算原材料的总价
+        List<MaterialStock> materialStockList = req.getMaterialStocks();
+        Iterator iterator = materialStockList.iterator();
+        while (iterator.hasNext()){
+            MaterialStock materialStock =(MaterialStock)iterator.next();
+            MaterialStock materialStockOld = materialService.queryById(materialStock.getId());
+
+            int materialquantity = materialStockOld.getMaterialQuantity()-materialStock.getMaterialQuantity();
+            materialStockOld.setMaterialQuantity(materialquantity);
+            //修改原材料库存
+            materialService.update(materialStockOld);
+
+            //计算原材料消耗价格
+            materialPrice = materialPrice.add(materialStockOld.getMaterialPrice().multiply(BigDecimal.valueOf(materialStock.getMaterialQuantity())));
+        }
+
+       //新单价 = （原库存数量 x 原单价 + 原材料a的数量*单价+原材料b的数量*单价....）÷ （原数量 + 新制作数量），
+        BigDecimal price = (goodsStockOld.getMaterialPrice().multiply(BigDecimal.valueOf(goodsStockOld.getGoodsQuantity())).add(materialPrice)).divide(BigDecimal.valueOf(quantity));
+
+       //保存成品
+        GoodsStock goodsStock = new GoodsStock();
+        goodsStock.setMaterialPrice(price);
+        goodsStock.setGoodsQuantity(quantity);
+        goodsStock.setId(req.getId());
+        goodsService.update(goodsStock);
+        renderSuccessString(response,"","保存成功");
+
     }
 /*
     //添加原材料采购

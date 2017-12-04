@@ -24,4 +24,12 @@ public class GoodsService {
     public int save(GoodsStock goodsStock) {
         return goodsStockMapper.insertSelective(goodsStock);
     }
+
+    public GoodsStock queryById(Integer id){
+        return goodsStockMapper.selectByPrimaryKey(id);
+    }
+
+    public void update(GoodsStock goodsStock){
+        goodsStockMapper.updateByPrimaryKeySelective(goodsStock);
+    }
 }

@@ -1,11 +1,11 @@
-package com.example.bean;
+package com.example.req;
 
 import java.math.BigDecimal;
 
-public class MaterialStockBuy {
+public class MaterialStockupdateReq {
     private Integer id;
 
-    private String materialName;
+    private Integer materialOldQuantity;
 
     private Integer materialQuantity;
 
@@ -19,12 +19,12 @@ public class MaterialStockBuy {
         this.id = id;
     }
 
-    public String getMaterialName() {
-        return materialName;
+    public Integer getMaterialOldQuantity() {
+        return materialOldQuantity;
     }
 
-    public void setMaterialName(String materialName) {
-        this.materialName = materialName;
+    public void setMaterialOldQuantity(Integer materialOldQuantity) {
+        this.materialOldQuantity = materialOldQuantity;
     }
 
     public Integer getMaterialQuantity() {
