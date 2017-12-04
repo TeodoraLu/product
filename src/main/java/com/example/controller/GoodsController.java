@@ -65,7 +65,7 @@ public class GoodsController extends GenericController{
     //修改成品
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public void update(@RequestBody GoodsStockUpdateReq req, HttpServletRequest request, HttpServletResponse response) {
-        BigDecimal newPrice = req.getMaterialPrice().multiply(BigDecimal.valueOf(req.getGoodsOldQuantity())).divide(BigDecimal.valueOf(req.getGoodsQuantity()));
+        BigDecimal newPrice = req.getMaterialPrice().multiply(BigDecimal.valueOf(req.getGoodsOldQuantity())).divide(BigDecimal.valueOf(req.getGoodsQuantity()),3);
         GoodsStock goodsStock = new GoodsStock();
         goodsStock.setId(req.getId());
         goodsStock.setMaterialPrice(newPrice);
@@ -101,7 +101,7 @@ public class GoodsController extends GenericController{
         }
 
        //新单价 = （原库存数量 x 原单价 + 原材料a的数量*单价+原材料b的数量*单价....）÷ （原数量 + 新制作数量），
-        BigDecimal price = (goodsStockOld.getMaterialPrice().multiply(BigDecimal.valueOf(goodsStockOld.getGoodsQuantity())).add(materialPrice)).divide(BigDecimal.valueOf(quantity));
+        BigDecimal price = (goodsStockOld.getMaterialPrice().multiply(BigDecimal.valueOf(goodsStockOld.getGoodsQuantity())).add(materialPrice)).divide(BigDecimal.valueOf(quantity),3);
 
        //保存成品
         GoodsStock goodsStock = new GoodsStock();
@@ -112,39 +112,6 @@ public class GoodsController extends GenericController{
         renderSuccessString(response,"","保存成功");
 
     }
-/*
-    //添加原材料采购
-    @RequestMapping(value = "/makeGoodsStock",method = RequestMethod.POST)
-    public void BuyMaterialStock(@RequestBody GoodsStock materialStockBuy, HttpServletRequest request, HttpServletResponse response) {
-        if(materialStockBuy==null||"".equals(materialStockBuy)){
-            renderErrorString(response, "参数为空");
-        }
-        MaterialStock materialStock = materialService.queryById(materialStockBuy.getId());
-
-        //保存购买流水记录
-        Expenditure expenditure = new Expenditure();
-        expenditure.setAmount(materialStockBuy.getPrice());
-        expenditure.setMaterialName(materialStock.getMaterialName());
-        expenditure.setDate(new Date());
-        materialService.saveExpenditure(expenditure);
-
-        //计算原材料库存总量 新数量 = 原数量 + 采购数量
-        Integer materialQuantity = materialStockBuy.getMaterialQuantity()+materialStock.getMaterialQuantity();
-
-        //计算单价  新单价 = （原库存数量 x 原单价 + 采购总价）÷ （原数量 + 采购数量）
-        BigDecimal price = materialStock.getMaterialPrice().multiply(new BigDecimal(materialStock.getMaterialQuantity())).add(materialStockBuy.getPrice()).divide(new BigDecimal(materialQuantity));
-
-        // (materialStock.getMaterialQuantity()*materialStock.getMaterialPrice()+materialStockBuy.getPrice())/materialQuantity;
-        materialStock.setMaterialQuantity(materialQuantity);
-        materialStock.setMaterialPrice(price);
-        materialService.update(materialStock);
-        renderSuccessString(response,materialStock,"保存成功");
-    }*/
-
-
-
-
-
 
 
    /* //返回jsp视图展示
