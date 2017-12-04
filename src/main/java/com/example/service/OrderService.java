@@ -20,9 +20,10 @@ public class OrderService {
     @Autowired
     private OrderInfoMapper orderInfoMapper;
 
-    public List<OrderInfo> getOrder(String type) {
+    public List<OrderInfo> getOrder(String type,int first) {
         Map<String,Object> param = new HashMap<String,Object>();
         param.put("type",type);
+        param.put("first",first);
         return orderInfoQueryMapper.queryOrderInfo(param);
     }
 

@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface MaterialStockQueryMapper {
-    List<MaterialStock> query();
+    List<MaterialStock> query(int first);
 }

@@ -26,8 +26,8 @@ public class MaterialService {
     @Autowired
     private ExpenditureMapper expenditureMapper;
 
-    public List<MaterialStock> query(){
-        return materialStockQueryMapper.query();
+    public List<MaterialStock> query(int first){
+        return materialStockQueryMapper.query(first);
     }
 
     public int save(MaterialStock materialStock) {

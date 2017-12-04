@@ -30,10 +30,9 @@ public class MaterialController extends GenericController{
     @RequestMapping(value = "/query",method = RequestMethod.POST)
     public void query(HttpServletRequest request, HttpServletResponse response) {
         int pagesNum = Integer.valueOf(request.getParameter("pagesNum"));
-        int first = (pagesNum-1)*10+1;
-        int end = pagesNum*10;
+        int first = (pagesNum-1)*10;
         //调用service方法得到用户列表
-        List<MaterialStock> materialStockList = materialService.query();
+        List<MaterialStock> materialStockList = materialService.query(first);
         renderSuccessString(response,materialStockList,"获取成功");
     }
 

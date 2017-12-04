@@ -21,8 +21,8 @@ public class GoodsService {
     @Autowired
     private GoodsStockMapper goodsStockMapper;
 
-    public List<GoodsStock> query(){
-        return goodsStockQueryMapper.query();
+    public List<GoodsStock> query(int first){
+        return goodsStockQueryMapper.query(first);
     }
     public int save(GoodsStock goodsStock) {
         return goodsStockMapper.insertSelective(goodsStock);

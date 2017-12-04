@@ -26,8 +26,10 @@ public class IndexController extends GenericController{
     @RequestMapping(value = "/orderInfo",method = RequestMethod.POST)
     public void getOrderInfo( HttpServletRequest request, HttpServletResponse response) {
         String type =request.getParameter("type");
+        int pagesNum = Integer.valueOf(request.getParameter("pagesNum"));
+        int first = (pagesNum-1)*10;
         logger.info("/index/orderInfo param is "+type);
-        List<OrderInfo> order = orderService.getOrder(type);
+        List<OrderInfo> order = orderService.getOrder(type,first);
         renderSuccessString(response,order,"操作成功");
     }
 

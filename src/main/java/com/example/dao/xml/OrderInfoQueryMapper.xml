@@ -4,6 +4,6 @@
   <select id="queryOrderInfo" resultType="com.example.bean.OrderInfo">
     select id,customer,createDate,readyDate,`upDate`,goods_name as goodsName,goods_quantity as goodsQuantity,
     goods_price as goodsPrice, goods_profit as goodsProfit,type from order_info where type =  #{type,jdbcType=VARCHAR}
-    ORDER BY readyDate asc
+    ORDER BY readyDate asc limit  #{first,jdbcType=INTEGER},10
   </select>
 </mapper>

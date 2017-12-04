@@ -36,8 +36,10 @@ public class GoodsController extends GenericController{
     //查询成品list
     @RequestMapping(value = "/query",method = RequestMethod.POST)
     public void query(HttpServletRequest request, HttpServletResponse response) {
+        int pagesNum = Integer.valueOf(request.getParameter("pagesNum"));
+        int first = (pagesNum-1)*10;
         //调用service方法得到用户列表
-        List<GoodsStock> goodsStocks = goodsService.query();
+        List<GoodsStock> goodsStocks = goodsService.query(first);
         renderSuccessString(response,goodsStocks,"获取成功");
     }
 
