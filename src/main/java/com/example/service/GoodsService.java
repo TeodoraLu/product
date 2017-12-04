@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 @Service
-public class GoodsServiceOld {
+public class GoodsService {
 
     @Autowired
     private GoodsStockQueryMapper goodsStockQueryMapper;
