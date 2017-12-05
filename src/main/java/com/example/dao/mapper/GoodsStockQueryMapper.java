@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface GoodsStockQueryMapper {
     List<GoodsStock> query(int first);
+
+    List<GoodsStock> queryAllList();
 }

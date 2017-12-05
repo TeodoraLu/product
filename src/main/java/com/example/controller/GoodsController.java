@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/goods")
@@ -40,7 +38,11 @@ public class GoodsController extends GenericController{
         int first = (pagesNum-1)*10;
         //调用service方法得到用户列表
         List<GoodsStock> goodsStocks = goodsService.query(first);
-        renderSuccessString(response,goodsStocks,"获取成功");
+        List<GoodsStock> goodsStockList = goodsService.queryAllList();
+        Map map = new HashMap();
+        map.put("goodsStocks",goodsStocks);
+        map.put("listNum",goodsStockList.size());
+        renderSuccessString(response,map,"获取成功");
     }
 
     //添加成品

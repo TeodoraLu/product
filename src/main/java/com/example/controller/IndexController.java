@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,10 @@ public class IndexController extends GenericController{
         int first = (pagesNum-1)*10;
         logger.info("/index/orderInfo param is "+type);
         List<OrderInfo> order = orderService.getOrder(type,first);
+        List<OrderInfo> orderAllList = orderService.getOrderAllList(type);
+        Map map = new HashMap();
+        map.put("order",order);
+        map.put("listNum",orderAllList.size());
         renderSuccessString(response,order,"操作成功");
     }
 

@@ -8,4 +8,7 @@ import java.util.Map;
 
 public interface OrderInfoQueryMapper {
     List<OrderInfo> queryOrderInfo(Map<String,Object> param);
+
+    List<OrderInfo> getOrderAllList(Map<String,Object> param);
 }
+

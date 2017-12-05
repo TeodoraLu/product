@@ -27,6 +27,13 @@ public class OrderService {
         return orderInfoQueryMapper.queryOrderInfo(param);
     }
 
+    public List<OrderInfo> getOrderAllList(String type) {
+        Map<String,Object> param = new HashMap<String,Object>();
+        param.put("type",type);
+        return orderInfoQueryMapper.getOrderAllList(param);
+    }
+
+
     public int save(OrderInfo orderInfo) {
         return orderInfoMapper.insertSelective(orderInfo);
     }

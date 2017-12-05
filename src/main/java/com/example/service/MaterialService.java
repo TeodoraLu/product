@@ -29,7 +29,9 @@ public class MaterialService {
     public List<MaterialStock> query(int first){
         return materialStockQueryMapper.query(first);
     }
-
+    public List<MaterialStock> materialStockAllList(){
+        return materialStockQueryMapper.materialStockAllList();
+    }
     public int save(MaterialStock materialStock) {
         return materialStockMapper.insertSelective(materialStock);
     }

@@ -7,4 +7,6 @@ import java.util.Map;
 
 public interface MaterialStockQueryMapper {
     List<MaterialStock> query(int first);
+
+    List<MaterialStock> materialStockAllList();
 }

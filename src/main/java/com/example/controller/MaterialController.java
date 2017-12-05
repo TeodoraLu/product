@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/material")
@@ -33,6 +35,10 @@ public class MaterialController extends GenericController{
         int first = (pagesNum-1)*10;
         //调用service方法得到用户列表
         List<MaterialStock> materialStockList = materialService.query(first);
+        List<MaterialStock> materialStockAllList = materialService.materialStockAllList();
+        Map map = new HashMap();
+        map.put("materialStockList",materialStockAllList);
+        map.put("listNum",materialStockAllList.size());
         renderSuccessString(response,materialStockList,"获取成功");
     }
 
