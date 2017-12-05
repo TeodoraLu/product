@@ -37,7 +37,7 @@ public class MaterialController extends GenericController{
         List<MaterialStock> materialStockList = materialService.query(first);
         List<MaterialStock> materialStockAllList = materialService.materialStockAllList();
         Map map = new HashMap();
-        map.put("materialStockList",materialStockAllList);
+        map.put("materialStock",materialStockAllList);
         map.put("listNum",materialStockAllList.size());
         renderSuccessString(response,map,"获取成功");
     }
