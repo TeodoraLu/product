@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 @Controller
 @RequestMapping(value = "/order")
@@ -26,6 +27,8 @@ public class OrderController extends GenericController{
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public void save(@RequestBody OrderInfo orderInfo, HttpServletRequest request, HttpServletResponse response) {
         //保存订单
+        orderInfo.setCreatedate(new Date());
+        orderInfo.setUpdate(new Date());
         int num = orderService.save(orderInfo);
         if(num==1){
             renderSuccessString(response,orderInfo,"保存成功");
@@ -38,6 +41,7 @@ public class OrderController extends GenericController{
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public void update(@RequestBody OrderInfo orderInfo, HttpServletRequest request, HttpServletResponse response) {
         //保存订单
+        orderInfo.setUpdate(new Date());
         int num = orderService.update(orderInfo);
         if(num==1){
             renderSuccessString(response,orderInfo,"修改成功");
@@ -50,6 +54,8 @@ public class OrderController extends GenericController{
     @RequestMapping(value = "/complete",method = RequestMethod.POST)
     public void complete(@RequestBody OrderInfoComplete orderInfo, HttpServletRequest request, HttpServletResponse response) {
         //保存订单
+        orderInfo.setType("3");
+        orderInfo.setUpdate(new Date());
         orderService.complete(orderInfo);
         renderSuccessString(response,orderInfo,"操作成功");
     }

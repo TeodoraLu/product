@@ -20,17 +20,26 @@ public class OrderService {
     @Autowired
     private OrderInfoMapper orderInfoMapper;
 
-    public List<OrderInfo> getOrder(String type,int first) {
+    public List<OrderInfo> getCompleteOrder(int first) {
         Map<String,Object> param = new HashMap<String,Object>();
-        param.put("type",type);
         param.put("first",first);
-        return orderInfoQueryMapper.queryOrderInfo(param);
+        return orderInfoQueryMapper.getCompleteOrder(param);
     }
 
-    public List<OrderInfo> getOrderAllList(String type) {
+    public List<OrderInfo> getCompleteOrderAllList() {
         Map<String,Object> param = new HashMap<String,Object>();
-        param.put("type",type);
-        return orderInfoQueryMapper.getOrderAllList(param);
+        return orderInfoQueryMapper.getCompleteOrderAllList();
+    }
+
+    public List<OrderInfo> getNotCompleteOrder(int first) {
+        Map<String,Object> param = new HashMap<String,Object>();
+        param.put("first",first);
+        return orderInfoQueryMapper.getNotCompleteOrder(param);
+    }
+
+    public List<OrderInfo> getNotCompleteOrderAllList() {
+        Map<String,Object> param = new HashMap<String,Object>();
+        return orderInfoQueryMapper.getNotCompleteOrderAllList();
     }
 
 

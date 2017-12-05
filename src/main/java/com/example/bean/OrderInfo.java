@@ -10,7 +10,7 @@ public class OrderInfo {
 
     private Date createdate;
 
-    private Date readydate;
+    private String readydate;
 
     private Date update;
 
@@ -23,6 +23,12 @@ public class OrderInfo {
     private BigDecimal goodsProfit;
 
     private String type;
+
+    private String phone;
+
+    private String address;
+
+    private String logistics;
 
     public Integer getId() {
         return id;
@@ -48,12 +54,12 @@ public class OrderInfo {
         this.createdate = createdate;
     }
 
-    public Date getReadydate() {
+    public String getReadydate() {
         return readydate;
     }
 
-    public void setReadydate(Date readydate) {
-        this.readydate = readydate;
+    public void setReadydate(String readydate) {
+        this.readydate = readydate == null ? null : readydate.trim();
     }
 
     public Date getUpdate() {
@@ -104,6 +110,30 @@ public class OrderInfo {
         this.type = type == null ? null : type.trim();
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
+    }
+
+    public String getLogistics() {
+        return logistics;
+    }
+
+    public void setLogistics(String logistics) {
+        this.logistics = logistics == null ? null : logistics.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -120,6 +150,9 @@ public class OrderInfo {
         sb.append(", goodsPrice=").append(goodsPrice);
         sb.append(", goodsProfit=").append(goodsProfit);
         sb.append(", type=").append(type);
+        sb.append(", phone=").append(phone);
+        sb.append(", address=").append(address);
+        sb.append(", logistics=").append(logistics);
         sb.append("]");
         return sb.toString();
     }

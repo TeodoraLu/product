@@ -5,20 +5,24 @@
     <id column="orderInfo_id" jdbcType="INTEGER" property="id" />
     <result column="orderInfo_customer" jdbcType="VARCHAR" property="customer" />
     <result column="orderInfo_createDate" jdbcType="TIMESTAMP" property="createdate" />
-    <result column="orderInfo_readyDate" jdbcType="TIMESTAMP" property="readydate" />
+    <result column="orderInfo_readyDate" jdbcType="VARCHAR" property="readydate" />
     <result column="orderInfo_upDate" jdbcType="TIMESTAMP" property="update" />
     <result column="orderInfo_goods_name" jdbcType="VARCHAR" property="goodsName" />
     <result column="orderInfo_goods_quantity" jdbcType="INTEGER" property="goodsQuantity" />
     <result column="orderInfo_goods_price" jdbcType="DECIMAL" property="goodsPrice" />
     <result column="orderInfo_goods_profit" jdbcType="DECIMAL" property="goodsProfit" />
     <result column="orderInfo_type" jdbcType="VARCHAR" property="type" />
+    <result column="orderInfo_phone" jdbcType="VARCHAR" property="phone" />
+    <result column="orderInfo_address" jdbcType="VARCHAR" property="address" />
+    <result column="orderInfo_logistics" jdbcType="VARCHAR" property="logistics" />
   </resultMap>
   <sql id="Base_Column_List">
     orderInfo.id as orderInfo_id, orderInfo.customer as orderInfo_customer, orderInfo.createDate as orderInfo_createDate, 
     orderInfo.readyDate as orderInfo_readyDate, orderInfo.upDate as orderInfo_upDate, 
     orderInfo.goods_name as orderInfo_goods_name, orderInfo.goods_quantity as orderInfo_goods_quantity, 
     orderInfo.goods_price as orderInfo_goods_price, orderInfo.goods_profit as orderInfo_goods_profit, 
-    orderInfo.type as orderInfo_type
+    orderInfo.type as orderInfo_type, orderInfo.phone as orderInfo_phone, orderInfo.address as orderInfo_address, 
+    orderInfo.logistics as orderInfo_logistics
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -34,11 +38,13 @@
     insert into order_info (id, customer, createDate, 
       readyDate, upDate, goods_name, 
       goods_quantity, goods_price, goods_profit, 
-      type)
+      type, phone, address, 
+      logistics)
     values (#{id,jdbcType=INTEGER}, #{customer,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
-      #{readydate,jdbcType=TIMESTAMP}, #{update,jdbcType=TIMESTAMP}, #{goodsName,jdbcType=VARCHAR}, 
+      #{readydate,jdbcType=VARCHAR}, #{update,jdbcType=TIMESTAMP}, #{goodsName,jdbcType=VARCHAR}, 
       #{goodsQuantity,jdbcType=INTEGER}, #{goodsPrice,jdbcType=DECIMAL}, #{goodsProfit,jdbcType=DECIMAL}, 
-      #{type,jdbcType=VARCHAR})
+      #{type,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{logistics,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.bean.OrderInfo">
     insert into order_info
@@ -73,6 +79,15 @@
       <if test="type != null">
         type,
       </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="logistics != null">
+        logistics,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -85,7 +100,7 @@
         #{createdate,jdbcType=TIMESTAMP},
       </if>
       <if test="readydate != null">
-        #{readydate,jdbcType=TIMESTAMP},
+        #{readydate,jdbcType=VARCHAR},
       </if>
       <if test="update != null">
         #{update,jdbcType=TIMESTAMP},
@@ -105,6 +120,15 @@
       <if test="type != null">
         #{type,jdbcType=VARCHAR},
       </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="logistics != null">
+        #{logistics,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.bean.OrderInfo">
@@ -117,7 +141,7 @@
         createDate = #{createdate,jdbcType=TIMESTAMP},
       </if>
       <if test="readydate != null">
-        readyDate = #{readydate,jdbcType=TIMESTAMP},
+        readyDate = #{readydate,jdbcType=VARCHAR},
       </if>
       <if test="update != null">
         upDate = #{update,jdbcType=TIMESTAMP},
@@ -137,6 +161,15 @@
       <if test="type != null">
         type = #{type,jdbcType=VARCHAR},
       </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="logistics != null">
+        logistics = #{logistics,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -144,13 +177,16 @@
     update order_info
     set customer = #{customer,jdbcType=VARCHAR},
       createDate = #{createdate,jdbcType=TIMESTAMP},
-      readyDate = #{readydate,jdbcType=TIMESTAMP},
+      readyDate = #{readydate,jdbcType=VARCHAR},
       upDate = #{update,jdbcType=TIMESTAMP},
       goods_name = #{goodsName,jdbcType=VARCHAR},
       goods_quantity = #{goodsQuantity,jdbcType=INTEGER},
       goods_price = #{goodsPrice,jdbcType=DECIMAL},
       goods_profit = #{goodsProfit,jdbcType=DECIMAL},
-      type = #{type,jdbcType=VARCHAR}
+      type = #{type,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      logistics = #{logistics,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
