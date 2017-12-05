@@ -35,7 +35,7 @@ public class IndexController extends GenericController{
         Map map = new HashMap();
         map.put("order",order);
         map.put("listNum",orderAllList.size());
-        renderSuccessString(response,order,"操作成功");
+        renderSuccessString(response,map,"操作成功");
     }
 
 

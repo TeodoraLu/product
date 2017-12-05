@@ -39,7 +39,7 @@ public class MaterialController extends GenericController{
         Map map = new HashMap();
         map.put("materialStockList",materialStockAllList);
         map.put("listNum",materialStockAllList.size());
-        renderSuccessString(response,materialStockList,"获取成功");
+        renderSuccessString(response,map,"获取成功");
     }
 
     //添加原材料
