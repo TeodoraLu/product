@@ -32,6 +32,7 @@ public class GenericController {
         result = new Result();
         result.setCode("0");
         result.setData(null);
+
         result.setMessage(massge);
         return renderString(response,gson.toJson(result),"application/json");
     }
