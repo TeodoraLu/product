@@ -54,8 +54,6 @@ public class OrderController extends GenericController{
     @RequestMapping(value = "/complete",method = RequestMethod.POST)
     public void complete(@RequestBody OrderInfoComplete orderInfo, HttpServletRequest request, HttpServletResponse response) {
         //保存订单
-        orderInfo.setType("3");
-        orderInfo.setUpdate(new Date());
         orderService.complete(orderInfo);
         renderSuccessString(response,orderInfo,"操作成功");
     }

@@ -30,6 +30,8 @@ public class OrderInfo {
 
     private String logistics;
 
+    private Integer goodsId;
+
     public Integer getId() {
         return id;
     }
@@ -134,6 +136,14 @@ public class OrderInfo {
         this.logistics = logistics == null ? null : logistics.trim();
     }
 
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -153,6 +163,7 @@ public class OrderInfo {
         sb.append(", phone=").append(phone);
         sb.append(", address=").append(address);
         sb.append(", logistics=").append(logistics);
+        sb.append(", goodsId=").append(goodsId);
         sb.append("]");
         return sb.toString();
     }

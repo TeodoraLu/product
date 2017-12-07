@@ -15,6 +15,7 @@
     <result column="orderInfo_phone" jdbcType="VARCHAR" property="phone" />
     <result column="orderInfo_address" jdbcType="VARCHAR" property="address" />
     <result column="orderInfo_logistics" jdbcType="VARCHAR" property="logistics" />
+    <result column="orderInfo_goods_id" jdbcType="INTEGER" property="goodsId" />
   </resultMap>
   <sql id="Base_Column_List">
     orderInfo.id as orderInfo_id, orderInfo.customer as orderInfo_customer, orderInfo.createDate as orderInfo_createDate, 
@@ -22,7 +23,7 @@
     orderInfo.goods_name as orderInfo_goods_name, orderInfo.goods_quantity as orderInfo_goods_quantity, 
     orderInfo.goods_price as orderInfo_goods_price, orderInfo.goods_profit as orderInfo_goods_profit, 
     orderInfo.type as orderInfo_type, orderInfo.phone as orderInfo_phone, orderInfo.address as orderInfo_address, 
-    orderInfo.logistics as orderInfo_logistics
+    orderInfo.logistics as orderInfo_logistics, orderInfo.goods_id as orderInfo_goods_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -39,12 +40,12 @@
       readyDate, upDate, goods_name, 
       goods_quantity, goods_price, goods_profit, 
       type, phone, address, 
-      logistics)
+      logistics, goods_id)
     values (#{id,jdbcType=INTEGER}, #{customer,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
       #{readydate,jdbcType=VARCHAR}, #{update,jdbcType=TIMESTAMP}, #{goodsName,jdbcType=VARCHAR}, 
       #{goodsQuantity,jdbcType=INTEGER}, #{goodsPrice,jdbcType=DECIMAL}, #{goodsProfit,jdbcType=DECIMAL}, 
       #{type,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{logistics,jdbcType=VARCHAR})
+      #{logistics,jdbcType=VARCHAR}, #{goodsId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.example.bean.OrderInfo">
     insert into order_info
@@ -88,6 +89,9 @@
       <if test="logistics != null">
         logistics,
       </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -128,6 +132,9 @@
       </if>
       <if test="logistics != null">
         #{logistics,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -170,6 +177,9 @@
       <if test="logistics != null">
         logistics = #{logistics,jdbcType=VARCHAR},
       </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -186,7 +196,8 @@
       type = #{type,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
-      logistics = #{logistics,jdbcType=VARCHAR}
+      logistics = #{logistics,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

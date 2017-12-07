@@ -7,6 +7,6 @@
   </select>
   <select id="queryAllList" resultType="com.example.bean.GoodsStock">
     select id, goods_name as goodsName, goods_quantity as goodsQuantity, material_unit as materialUnit, material_price as materialPrice from goods_stock
-    ORDER BY id asc
+    ORDER BY goodsQuantity, id asc
   </select>
 </mapper>
