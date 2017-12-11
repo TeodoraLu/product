@@ -72,9 +72,10 @@ public class MaterialController extends GenericController{
         Integer materialQuantity = materialStockBuy.getMaterialQuantity()+materialStock.getMaterialQuantity();
 
         //计算单价  新单价 = （原库存数量 x 原单价 + 采购总价）÷ （原数量 + 采购数量）
-        BigDecimal price = materialStock.getMaterialPrice().multiply(new BigDecimal(materialStock.getMaterialQuantity())).add(materialStockBuy.getPrice()).divide(new BigDecimal(materialQuantity),3);
+        BigDecimal price = materialStock.getMaterialPrice().multiply(new BigDecimal(materialStock.getMaterialQuantity())).add(materialStockBuy.getPrice()).divide(new BigDecimal(materialQuantity),4);
+        price =  price.setScale(3, BigDecimal.ROUND_UP);
 
-       // (materialStock.getMaterialQuantity()*materialStock.getMaterialPrice()+materialStockBuy.getPrice())/materialQuantity;
+        // (materialStock.getMaterialQuantity()*materialStock.getMaterialPrice()+materialStockBuy.getPrice())/materialQuantity;
         materialStock.setMaterialQuantity(materialQuantity);
         materialStock.setMaterialPrice(price);
         materialService.update(materialStock);
@@ -93,7 +94,9 @@ public class MaterialController extends GenericController{
     //修改原材料
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public void save(@RequestBody MaterialStockupdateReq req, HttpServletRequest request, HttpServletResponse response) {
-        BigDecimal newPrice = req.getPrice().multiply(BigDecimal.valueOf(req.getMaterialOldQuantity())).divide(BigDecimal.valueOf(req.getMaterialQuantity()),3);
+        BigDecimal newPrice = req.getPrice().multiply(BigDecimal.valueOf(req.getMaterialOldQuantity())).divide(BigDecimal.valueOf(req.getMaterialQuantity()),4);
+        newPrice =  newPrice.setScale(3, BigDecimal.ROUND_UP);
+
         MaterialStock materialStock = new MaterialStock();
         materialStock.setId(req.getId());
         materialStock.setMaterialPrice(newPrice);

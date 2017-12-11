@@ -69,7 +69,8 @@ public class GoodsController extends GenericController{
     //修改成品
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public void update(@RequestBody GoodsStockUpdateReq req, HttpServletRequest request, HttpServletResponse response) {
-        BigDecimal newPrice = req.getMaterialPrice().multiply(BigDecimal.valueOf(req.getGoodsOldQuantity())).divide(BigDecimal.valueOf(req.getGoodsQuantity()),3);
+        BigDecimal newPrice = req.getMaterialPrice().multiply(BigDecimal.valueOf(req.getGoodsOldQuantity())).divide(BigDecimal.valueOf(req.getGoodsQuantity()),4);
+        newPrice =  newPrice.setScale(3, BigDecimal.ROUND_UP);
         GoodsStock goodsStock = new GoodsStock();
         goodsStock.setId(req.getId());
         goodsStock.setMaterialPrice(newPrice);
@@ -105,8 +106,8 @@ public class GoodsController extends GenericController{
         }
 
        //新单价 = （原库存数量 x 原单价 + 原材料a的数量*单价+原材料b的数量*单价....）÷ （原数量 + 新制作数量），
-        BigDecimal price = (goodsStockOld.getMaterialPrice().multiply(BigDecimal.valueOf(goodsStockOld.getGoodsQuantity())).add(materialPrice)).divide(BigDecimal.valueOf(quantity),3);
-
+        BigDecimal price = (goodsStockOld.getMaterialPrice().multiply(BigDecimal.valueOf(goodsStockOld.getGoodsQuantity())).add(materialPrice)).divide(BigDecimal.valueOf(quantity),4);
+        price =  price.setScale(3, BigDecimal.ROUND_UP);
        //保存成品
         GoodsStock goodsStock = new GoodsStock();
         goodsStock.setMaterialPrice(price);
