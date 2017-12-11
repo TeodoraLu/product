@@ -56,4 +56,9 @@
   <session-config>
     <session-timeout>360</session-timeout>
   </session-config>
+
+
+  <welcome-file-list>
+    <welcome-file>/dist/index.html</welcome-file>
+  </welcome-file-list>
 </web-app>
