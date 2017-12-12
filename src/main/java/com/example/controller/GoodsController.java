@@ -45,6 +45,17 @@ public class GoodsController extends GenericController{
         renderSuccessString(response,map,"获取成功");
     }
 
+    //查询成品list
+    @RequestMapping(value = "/queryAll",method = RequestMethod.POST)
+    public void queryAll(HttpServletRequest request, HttpServletResponse response) {
+        //调用service方法得到用户列表
+        List<GoodsStock> goodsStockList = goodsService.queryAllList();
+        Map map = new HashMap();
+        map.put("goodsStocks",goodsStockList);
+        renderSuccessString(response,map,"获取成功");
+    }
+
+
     //添加成品
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public void save(@RequestBody GoodsStock goodsStock, HttpServletRequest request, HttpServletResponse response) {

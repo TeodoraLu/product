@@ -42,6 +42,16 @@ public class MaterialController extends GenericController{
         renderSuccessString(response,map,"获取成功");
     }
 
+    //查询所有的原材料
+    @RequestMapping(value = "/queryAll",method = RequestMethod.POST)
+    public void queryAll(HttpServletRequest request, HttpServletResponse response) {
+        //调用service方法得到用户列表
+        List<MaterialStock> materialStockAllList = materialService.materialStockAllList();
+        Map map = new HashMap();
+        map.put("materialStock",materialStockAllList);
+        renderSuccessString(response,map,"获取成功");
+    }
+
     //添加原材料
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public void save(@RequestBody MaterialStock materialStock, HttpServletRequest request, HttpServletResponse response) {
