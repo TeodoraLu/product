@@ -37,6 +37,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--可以访问静态文件-->
     <mvc:default-servlet-handler/>
 
     <bean id="viewResolver"
