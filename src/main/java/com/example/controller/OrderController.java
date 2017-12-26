@@ -28,7 +28,7 @@ public class OrderController extends GenericController{
     public void save(@RequestBody OrderInfo orderInfo, HttpServletRequest request, HttpServletResponse response) {
         //保存订单
         orderInfo.setCreatedate(new Date());
-        orderInfo.setUpdate(new Date());
+        orderInfo.setModifydate(new Date());
         int num = orderService.save(orderInfo);
         if(num==1){
             renderSuccessString(response,orderInfo,"保存成功");
@@ -41,7 +41,7 @@ public class OrderController extends GenericController{
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public void update(@RequestBody OrderInfo orderInfo, HttpServletRequest request, HttpServletResponse response) {
         //保存订单
-        orderInfo.setUpdate(new Date());
+        orderInfo.setModifydate(new Date());
         int num = orderService.update(orderInfo);
         if(num==1){
             renderSuccessString(response,orderInfo,"修改成功");

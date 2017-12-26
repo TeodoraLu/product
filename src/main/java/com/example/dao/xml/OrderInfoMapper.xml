@@ -6,7 +6,7 @@
     <result column="orderInfo_customer" jdbcType="VARCHAR" property="customer" />
     <result column="orderInfo_createDate" jdbcType="TIMESTAMP" property="createdate" />
     <result column="orderInfo_readyDate" jdbcType="VARCHAR" property="readydate" />
-    <result column="orderInfo_upDate" jdbcType="TIMESTAMP" property="update" />
+    <result column="orderInfo_modifyDate" jdbcType="TIMESTAMP" property="modifydate" />
     <result column="orderInfo_goods_name" jdbcType="VARCHAR" property="goodsName" />
     <result column="orderInfo_goods_quantity" jdbcType="INTEGER" property="goodsQuantity" />
     <result column="orderInfo_goods_price" jdbcType="DECIMAL" property="goodsPrice" />
@@ -19,7 +19,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     orderInfo.id as orderInfo_id, orderInfo.customer as orderInfo_customer, orderInfo.createDate as orderInfo_createDate, 
-    orderInfo.readyDate as orderInfo_readyDate, orderInfo.upDate as orderInfo_upDate, 
+    orderInfo.readyDate as orderInfo_readyDate, orderInfo.modifyDate as orderInfo_modifyDate, 
     orderInfo.goods_name as orderInfo_goods_name, orderInfo.goods_quantity as orderInfo_goods_quantity, 
     orderInfo.goods_price as orderInfo_goods_price, orderInfo.goods_profit as orderInfo_goods_profit, 
     orderInfo.type as orderInfo_type, orderInfo.phone as orderInfo_phone, orderInfo.address as orderInfo_address, 
@@ -37,12 +37,12 @@
   </delete>
   <insert id="insert" parameterType="com.example.bean.OrderInfo">
     insert into order_info (id, customer, createDate, 
-      readyDate, upDate, goods_name, 
+      readyDate, modifyDate, goods_name, 
       goods_quantity, goods_price, goods_profit, 
       type, phone, address, 
       logistics, goods_id)
     values (#{id,jdbcType=INTEGER}, #{customer,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
-      #{readydate,jdbcType=VARCHAR}, #{update,jdbcType=TIMESTAMP}, #{goodsName,jdbcType=VARCHAR}, 
+      #{readydate,jdbcType=VARCHAR}, #{modifydate,jdbcType=TIMESTAMP}, #{goodsName,jdbcType=VARCHAR}, 
       #{goodsQuantity,jdbcType=INTEGER}, #{goodsPrice,jdbcType=DECIMAL}, #{goodsProfit,jdbcType=DECIMAL}, 
       #{type,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{logistics,jdbcType=VARCHAR}, #{goodsId,jdbcType=INTEGER})
@@ -62,8 +62,8 @@
       <if test="readydate != null">
         readyDate,
       </if>
-      <if test="update != null">
-        upDate,
+      <if test="modifydate != null">
+        modifyDate,
       </if>
       <if test="goodsName != null">
         goods_name,
@@ -106,8 +106,8 @@
       <if test="readydate != null">
         #{readydate,jdbcType=VARCHAR},
       </if>
-      <if test="update != null">
-        #{update,jdbcType=TIMESTAMP},
+      <if test="modifydate != null">
+        #{modifydate,jdbcType=TIMESTAMP},
       </if>
       <if test="goodsName != null">
         #{goodsName,jdbcType=VARCHAR},
@@ -150,8 +150,8 @@
       <if test="readydate != null">
         readyDate = #{readydate,jdbcType=VARCHAR},
       </if>
-      <if test="update != null">
-        upDate = #{update,jdbcType=TIMESTAMP},
+      <if test="modifydate != null">
+        modifyDate = #{modifydate,jdbcType=TIMESTAMP},
       </if>
       <if test="goodsName != null">
         goods_name = #{goodsName,jdbcType=VARCHAR},
@@ -188,7 +188,7 @@
     set customer = #{customer,jdbcType=VARCHAR},
       createDate = #{createdate,jdbcType=TIMESTAMP},
       readyDate = #{readydate,jdbcType=VARCHAR},
-      upDate = #{update,jdbcType=TIMESTAMP},
+      modifyDate = #{modifydate,jdbcType=TIMESTAMP},
       goods_name = #{goodsName,jdbcType=VARCHAR},
       goods_quantity = #{goodsQuantity,jdbcType=INTEGER},
       goods_price = #{goodsPrice,jdbcType=DECIMAL},

@@ -12,7 +12,7 @@ public class OrderInfo {
 
     private String readydate;
 
-    private Date update;
+    private Date modifydate;
 
     private String goodsName;
 
@@ -64,12 +64,12 @@ public class OrderInfo {
         this.readydate = readydate == null ? null : readydate.trim();
     }
 
-    public Date getUpdate() {
-        return update;
+    public Date getModifydate() {
+        return modifydate;
     }
 
-    public void setUpdate(Date update) {
-        this.update = update;
+    public void setModifydate(Date modifydate) {
+        this.modifydate = modifydate;
     }
 
     public String getGoodsName() {
@@ -154,7 +154,7 @@ public class OrderInfo {
         sb.append(", customer=").append(customer);
         sb.append(", createdate=").append(createdate);
         sb.append(", readydate=").append(readydate);
-        sb.append(", update=").append(update);
+        sb.append(", modifydate=").append(modifydate);
         sb.append(", goodsName=").append(goodsName);
         sb.append(", goodsQuantity=").append(goodsQuantity);
         sb.append(", goodsPrice=").append(goodsPrice);
