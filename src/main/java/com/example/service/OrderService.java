@@ -72,7 +72,7 @@ public class OrderService {
         OrderInfo orderInfoUpdate = new OrderInfo();
         orderInfoUpdate.setId(orderInfo.getId());
         orderInfoUpdate.setType("3");
-        orderInfoUpdate.setUpdate(new Date());
+        orderInfoUpdate.setModifydate(new Date());
         orderInfoUpdate.setGoodsProfit(goodsProfit);
         orderInfoMapper.updateByPrimaryKeySelective(orderInfoUpdate);
     }
