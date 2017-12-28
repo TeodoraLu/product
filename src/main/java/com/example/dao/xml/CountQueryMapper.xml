@@ -15,7 +15,7 @@
 
 
   <select id="getCostSum" resultType="map">
-    select sum(amount) from expenditure
+    select sum(amount) as amountSum from expenditure
     where 1=1
     <if test="datefrom !=null and datefrom !='' ">
       AND date &gt;= #{datefrom,jdbcType=VARCHAR}
@@ -40,7 +40,7 @@
 
 
   <select id="getIncomeSum" resultType="map">
-    select sum(goods_price) from order_info
+    select sum(goods_price) as goodsPrice from order_info
     where 1=1
     <if test="datefrom !=null and datefrom !='' ">
       AND modifyDate &gt;= #{datefrom,jdbcType=VARCHAR}
@@ -65,7 +65,7 @@
 
 
   <select id="getProfitsSum" resultType="map">
-    select sum(goods_profit) from order_info
+    select sum(goods_profit) as goodsProfit from order_info
     where 1=1
     <if test="datefrom !=null and datefrom !='' ">
       AND modifyDate &gt;= #{datefrom,jdbcType=VARCHAR}
