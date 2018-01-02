@@ -37,7 +37,11 @@ public class CountController extends GenericController{
         Iterator iterator = costSumList.iterator();
         while (iterator.hasNext()){
             Map<String,Object> sumMap = (Map<String,Object> )iterator.next();
-            result.put("costSum", sumMap.get("amountSum"));
+            if(sumMap==null||"".equals(sumMap)){
+                result.put("costSum", "");
+            }else{
+                result.put("costSum", sumMap.get("amountSum"));
+            }
         }
         result.put("listMap",listMap);
         renderSuccessString(response,result,"操作成功");
@@ -57,7 +61,12 @@ public class CountController extends GenericController{
         Iterator iterator = incomeSumList.iterator();
         while (iterator.hasNext()){
             Map<String,Object> sumMap = (Map<String,Object> )iterator.next();
-            result.put("incomeSum", sumMap.get("goodsPrice"));
+            if(sumMap==null||"".equals(sumMap)){
+                result.put("incomeSum", "");
+            }else{
+                result.put("incomeSum", sumMap.get("goodsPrice"));
+            }
+
         }
         result.put("listMap",listMap);
 
@@ -78,7 +87,12 @@ public class CountController extends GenericController{
         Iterator iterator = profitsSumList.iterator();
         while (iterator.hasNext()){
             Map<String,Object> sumMap = (Map<String,Object> )iterator.next();
-            result.put("profitSum", sumMap.get("goodsProfit"));
+            if(sumMap==null||"".equals(sumMap)){
+                result.put("profitSum", "");
+            }else{
+                result.put("profitSum", sumMap.get("goodsProfit"));
+            }
+
         }
         result.put("listMap",listMap);
 
